@@ -11,7 +11,7 @@ public class GetMouthPairId {
         System.out.println(mouthPairComboBox.getSelectionModel().getSelectedItem().toString()); //TODO temp
         String comboSelectedName = new String(mouthPairComboBox.getSelectionModel().getSelectedItem().toString());
         ResultSet rs;
-        String query = new String("SELECT mouth_pair_type_id FROM `word-to-phoneme`.mouth_pair_type WHERE mouth_pair_name = '" + comboSelectedName + "' LIMIT 1;");
+        String query = new String("SELECT mouth_pair_type_id FROM mouth_pair_type WHERE mouth_pair_name = '" + comboSelectedName + "' LIMIT 1;");
         rs = Main.db.sendQuery(query);
         int mouthPairId = 0;
         try {

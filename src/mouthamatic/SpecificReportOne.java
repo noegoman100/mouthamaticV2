@@ -9,7 +9,7 @@ public class SpecificReportOne extends GenericReport{
     @Override
     public String addGuts(){
         //Distinct Symbols currently used by all the words in the database.
-        String query = new String("SELECT DISTINCT symbol FROM `word-to-phoneme`.`word` JOIN `word-to-phoneme`.`word_parts` ON (word_id = word_id_pk1) JOIN `word-to-phoneme`.`symbols` ON (symbols_id = symbol_id_fk) ORDER BY symbol;");
+        String query = new String("SELECT DISTINCT symbol FROM `word` JOIN `word_parts` ON (word_id = word_id_pk1) JOIN `symbols` ON (symbols_id = symbol_id_fk) ORDER BY symbol;");
         ResultSet rs = Main.db.sendQuery(query);
         List<String> symbolList = new ArrayList();
         while (true){

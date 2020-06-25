@@ -40,6 +40,7 @@ public class FXMLLoginController implements Initializable {
             Main.screenManager.changeStage(ScreenEnum.HOME);
         } catch (Exception ex) {
             Logger.getLogger(FXMLLoginController.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Error in bypassLogin");
         }
         //***** END TEMP for Testing.
     }
@@ -67,6 +68,7 @@ public class FXMLLoginController implements Initializable {
             }
         } catch (SQLException ex) {
             Logger.getLogger(FXMLLoginController.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Error in loginButtonAction");
         }
         
         

@@ -109,7 +109,7 @@ public class FXMLHomeController implements Initializable {
     //GENERATE TAB
     private void mInitializeGenerateTab(){
         List<String> choicesArray = new ArrayList<>();
-        ResultSet rs = Main.db.sendQuery("SELECT mouth_pair_name FROM `word-to-phoneme`.mouth_pair_type ORDER BY mouth_pair_type_id ASC;");
+        ResultSet rs = Main.db.sendQuery("SELECT mouth_pair_name FROM mouth_pair_type ORDER BY mouth_pair_type_id ASC;");
         while (true){
             try {
                 if (!rs.next()) break;
@@ -127,7 +127,7 @@ public class FXMLHomeController implements Initializable {
     private void mInitializeReportsView() {
         ResultSet rs = null;
         try {
-            rs = Main.db.sendQuery("SELECT report_query_name FROM `word-to-phoneme`.report_query ORDER BY report_query_name ASC;");
+            rs = Main.db.sendQuery("SELECT report_query_name FROM report_query ORDER BY report_query_name ASC;");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -195,7 +195,7 @@ public class FXMLHomeController implements Initializable {
     private void mInitializeDataTab(){
         //Populate MouthPairType ComboBox
         List<String> choicesArray = new ArrayList<>();
-        ResultSet rs = Main.db.sendQuery("SELECT mouth_pair_name FROM `word-to-phoneme`.mouth_pair_type ORDER BY mouth_pair_type_id ASC;");
+        ResultSet rs = Main.db.sendQuery("SELECT mouth_pair_name FROM mouth_pair_type ORDER BY mouth_pair_type_id ASC;");
         while (true){
             try {
                 if (!rs.next()) break;
@@ -235,7 +235,7 @@ public class FXMLHomeController implements Initializable {
     @FXML
     private void mDeleteWordButton(){
 
-        String deleteQuery = new String("DELETE FROM `word-to-phoneme`.word WHERE word_name = '" + dataSearchWordTextField.getText() + "';");
+        String deleteQuery = new String("DELETE FROM word WHERE word_name = '" + dataSearchWordTextField.getText() + "';");
         System.out.println(deleteQuery);
         Main.db.sendUpdate(deleteQuery);
         mWordSearchButton();

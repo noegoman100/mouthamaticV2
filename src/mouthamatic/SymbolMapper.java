@@ -12,7 +12,7 @@ public class SymbolMapper {
         ResultSet noPhenomeImageRS;
         List<String> imageSequence = new ArrayList<>();
         //noPhonomeImageRS is for adding a no-sound image between words
-        noPhenomeImageRS = Main.db.sendQuery("SELECT image_url FROM `word-to-phoneme`.image_map WHERE symbol_id_pk2 = "
+        noPhenomeImageRS = Main.db.sendQuery("SELECT image_url FROM image_map WHERE symbol_id_pk2 = "
                 + blankSymbolId + " "
                 + " AND mouth_pair_id_pk1 = " + mouth_pair_id
                 + ";");
@@ -25,7 +25,7 @@ public class SymbolMapper {
 
             //Below For Loop - iterate inside of each word, looking at each phonemeId.
             for (int j = 0; j < sentenceData.getParsedSentenceWordsList().get(i).getPhonemes().size(); j++){
-                rs = Main.db.sendQuery("SELECT image_url FROM `word-to-phoneme`.image_map WHERE symbol_id_pk2 = "
+                rs = Main.db.sendQuery("SELECT image_url FROM image_map WHERE symbol_id_pk2 = "
                         + sentenceData.getParsedSentenceWordsList().get(i).getPhonemes().get(j)
                         + " AND mouth_pair_id_pk1 = " + mouth_pair_id
                         + ";");

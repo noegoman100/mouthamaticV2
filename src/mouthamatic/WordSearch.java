@@ -22,8 +22,8 @@ public class WordSearch {
         int maxParts = 0;
         try {
             /**** Find the Max number of parts for the word being searched **/
-            String queryMaxParts = new String("SELECT max(part_segment_pk2) FROM `word-to-phoneme`.word_parts " +
-                    "INNER JOIN `word-to-phoneme`.word ON (word_id = word_id_pk1) " +
+            String queryMaxParts = new String("SELECT max(part_segment_pk2) FROM word_parts " +
+                    "INNER JOIN word ON (word_id = word_id_pk1) " +
                     "WHERE word_name = '" + word + "';");
             ResultSet maxPartsRS = Main.db.sendQuery(queryMaxParts);
             maxPartsRS.next(); //TODO if the word is not there (or too long) an error occurs
@@ -43,9 +43,9 @@ public class WordSearch {
                     queryAllParts = queryAllParts + ", ";
                 }
             }
-            queryAllParts = queryAllParts + " " + "FROM `word-to-phoneme`.word ";
+            queryAllParts = queryAllParts + " " + "FROM word ";
             for (int i = 0; i < maxParts; i++){
-                queryAllParts = queryAllParts + "INNER JOIN `word-to-phoneme`.word_parts AS set" + (i+1) + " ON (word_id = set" + (i+1) + ".word_id_pk1 AND "
+                queryAllParts = queryAllParts + "INNER JOIN word_parts AS set" + (i+1) + " ON (word_id = set" + (i+1) + ".word_id_pk1 AND "
                         + "set" + (i+1) + ".part_segment_pk2=" + (i+1) + ") ";
             }
             queryAllParts = queryAllParts + "WHERE word_name='" + word + "'; ";
@@ -61,7 +61,7 @@ public class WordSearch {
 
                     /** Get word_id value from word name in tableView **/
                     int word_id = 0;
-                    ResultSet rs = Main.db.sendQuery("SELECT word_id FROM `word-to-phoneme`.word WHERE word_name = '" + editEvent.getRowValue().get(0) + "';");
+                    ResultSet rs = Main.db.sendQuery("SELECT word_id FROM word WHERE word_name = '" + editEvent.getRowValue().get(0) + "';");
                     while (true){
                         try {
                             if (!rs.next()) break;
@@ -75,7 +75,7 @@ public class WordSearch {
                     if(editEvent.getOldValue().toUpperCase().equals(dataSearchWordTextField.getText().toUpperCase())) {
                         System.out.println("I get here");
                         String updateQuery = new String("UPDATE " +
-                                "`word-to-phoneme`.word " +
+                                "word " +
                                 "SET word_name = '" + editEvent.getNewValue() + "' " +
                                 "WHERE word_id = " + word_id + ";"
                         );
@@ -88,7 +88,7 @@ public class WordSearch {
                     /** With word_id, and part_segment_pk2 (column index), a specific item can be updated**/
                     else if (word_id != 0) {
                         String updateQuery = new String("UPDATE " +
-                                "`word-to-phoneme`.word_parts " +
+                                "word_parts " +
                                 "SET symbol_id_fk = " + editEvent.getNewValue() +
                                 " WHERE word_id_pk1 = " + word_id +
                                 " AND part_segment_pk2 = " + editEvent.getTablePosition().getColumn() + ";");

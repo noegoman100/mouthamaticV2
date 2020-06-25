@@ -28,8 +28,8 @@ public class WordParser {
             try {
                 ResultSet rs;
                 String query;
-                // SELECT word_name, word_id_pk1, part_segment_pk2, symbol_id_fk FROM `word-to-phoneme`.word_parts JOIN `word-to-phoneme`.word ON word_id = word_id_pk1 WHERE word_name = "AARON";
-                query = "SELECT word_name, word_id_pk1, part_segment_pk2, symbol_id_fk FROM `word-to-phoneme`.word_parts JOIN `word-to-phoneme`.word ON word_id = word_id_pk1 WHERE word_name = \""
+                // SELECT word_name, word_id_pk1, part_segment_pk2, symbol_id_fk FROM word_parts JOIN word ON word_id = word_id_pk1 WHERE word_name = "AARON";
+                query = "SELECT word_name, word_id_pk1, part_segment_pk2, symbol_id_fk FROM word_parts JOIN word ON word_id = word_id_pk1 WHERE word_name = \""
                         + sentenceData.getParsedSentenceWordsList().get(i).getWord_name() + "\";";
                 rs = Main.db.sendQuery(query);
                 sentenceData.getParsedSentenceWordsList().get(i).getPhonemes().add(blankSymbolId); //Adding the Blank Symbol to start the word.

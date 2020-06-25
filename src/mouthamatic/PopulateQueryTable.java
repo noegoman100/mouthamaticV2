@@ -15,7 +15,7 @@ import java.sql.SQLException;
 public class PopulateQueryTable {
     public void run(String selectionName, TableView reportsTableView) {
         ObservableList<ObservableList> data = FXCollections.observableArrayList();
-        ResultSet rsSelection = Main.db.sendQuery("SELECT report_query_string FROM `word-to-phoneme`.report_query "
+        ResultSet rsSelection = Main.db.sendQuery("SELECT report_query_string FROM report_query "
                 + "WHERE report_query_name = '" + selectionName + "' "
                 + "ORDER BY report_query_name DESC LIMIT 1; ");
         String query = new String("Error Loading Query");

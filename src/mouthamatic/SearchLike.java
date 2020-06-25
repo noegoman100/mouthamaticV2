@@ -18,8 +18,8 @@ public class SearchLike {
         int maxParts = 0;
         try {
             /**** Find the Max number of parts for the word being searched **/
-            String queryMaxParts = new String("SELECT max(part_segment_pk2) FROM `word-to-phoneme`.word_parts " +
-                    "INNER JOIN `word-to-phoneme`.word ON (word_id = word_id_pk1) " +
+            String queryMaxParts = new String("SELECT max(part_segment_pk2) FROM word_parts " +
+                    "INNER JOIN word ON (word_id = word_id_pk1) " +
                     "WHERE word_name LIKE '" + word + "%';");
             System.out.println("queryMaxParts: " + queryMaxParts);
             ResultSet maxPartsRS = Main.db.sendQuery(queryMaxParts);
@@ -40,9 +40,9 @@ public class SearchLike {
                     queryAllParts = queryAllParts + ", ";
                 }
             }
-            queryAllParts = queryAllParts + " " + "FROM `word-to-phoneme`.word ";
+            queryAllParts = queryAllParts + " " + "FROM word ";
             for (int i = 0; i < maxParts; i++){
-                queryAllParts = queryAllParts + "LEFT OUTER JOIN `word-to-phoneme`.word_parts AS set" + (i+1) + " ON (word_id = set" + (i+1) + ".word_id_pk1 AND "
+                queryAllParts = queryAllParts + "LEFT OUTER JOIN word_parts AS set" + (i+1) + " ON (word_id = set" + (i+1) + ".word_id_pk1 AND "
                         + "set" + (i+1) + ".part_segment_pk2=" + (i+1) + ") ";
             }
             queryAllParts = queryAllParts + "WHERE word_name LIKE '" + word + "%'; ";

@@ -14,7 +14,7 @@ import java.sql.SQLException;
 
 public class LoadSymbolChart {
     public void run(TableView referenceChartTableView){
-        String query = new String("SELECT symbol AS 'Symbol', symbol_id_fk AS 'Symbol ID', word_name AS 'Example Word' FROM `word-to-phoneme`.word INNER JOIN `word-to-phoneme`.word_parts ON (word_id = word_id_pk1) INNER JOIN `word-to-phoneme`.symbols ON (symbols_id = symbol_id_fk) GROUP BY symbol ORDER BY symbol, part_segment_pk2;");
+        String query = new String("SELECT symbol AS 'Symbol', symbol_id_fk AS 'Symbol ID', word_name AS 'Example Word' FROM word INNER JOIN word_parts ON (word_id = word_id_pk1) INNER JOIN symbols ON (symbols_id = symbol_id_fk) GROUP BY symbol ORDER BY symbol, part_segment_pk2;");
         ObservableList<ObservableList> referenceListData;
         referenceListData = FXCollections.observableArrayList();
         ResultSet rsChart = Main.db.sendQuery(query);

@@ -21,7 +21,7 @@ public class MakeNewWord {
             phonemeCount = Integer.parseInt(result.get());
             //TODO get next Available word_id
             ResultSet nextWordIdRS;
-            String nextWordIdQuery = new String("SELECT MAX(word_id) FROM `word-to-phoneme`.word;");
+            String nextWordIdQuery = new String("SELECT MAX(word_id) FROM word;");
             nextWordIdRS = Main.db.sendQuery(nextWordIdQuery);
             int nextAvailableId = 0;
             try {
@@ -32,13 +32,13 @@ public class MakeNewWord {
                 throwables.printStackTrace();
             }
             //TODO Now, send an Update with a Blank word
-            String insertWordQuery = new String("INSERT INTO `word-to-phoneme`.`word` (`word_id`, `word_name`) VALUES ('" + nextAvailableId + "', 'NEWWORD');");
+            String insertWordQuery = new String("INSERT INTO `word` (`word_id`, `word_name`) VALUES ('" + nextAvailableId + "', 'NEWWORD');");
             //System.out.println("updateQuery: " + insertWordQuery);
             Main.db.sendUpdate(insertWordQuery);
 
             //TODO Build an insert Query with the correct number of parts
             for (int i = 0; i < phonemeCount; i++) {
-                String insertPartsQuery = new String("INSERT INTO `word-to-phoneme`.`word_parts` (`word_id_pk1`, `part_segment_pk2`, `symbol_id_fk`) VALUES ('" +
+                String insertPartsQuery = new String("INSERT INTO `word_parts` (`word_id_pk1`, `part_segment_pk2`, `symbol_id_fk`) VALUES ('" +
                         nextAvailableId + "', '" + (i + 1) +
                         "', '999');");
                 //System.out.println("updateQuery: " + insertPartsQuery);

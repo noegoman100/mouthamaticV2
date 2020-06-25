@@ -9,7 +9,7 @@ public class SpecificReportTwo extends GenericReport{
     @Override
     public String addGuts(){
         //Number of Words Per Phoneme Count
-        String query = new String("SELECT part_segment_pk2, count(*) FROM `word-to-phoneme`.word_parts GROUP BY part_segment_pk2;");
+        String query = new String("SELECT part_segment_pk2, count(*) FROM word_parts GROUP BY part_segment_pk2;");
         ResultSet rs = Main.db.sendQuery(query);
         List<Integer> numberOfPhonemes = new ArrayList<>();
         List<Integer> numberOfWords = new ArrayList<>();

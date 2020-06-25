@@ -18,7 +18,7 @@ public class LoadReferenceImages {
     public void run(ComboBox dataMouthSetChoiceComboBox, ScrollPane referenceScrollPane){
         int selectedItemIndex = dataMouthSetChoiceComboBox.getSelectionModel().getSelectedIndex();
         String selectedName = new String(dataMouthSetChoiceComboBox.getItems().get(selectedItemIndex).toString());
-        String mouthPairTypeIdQuery = new String("SELECT mouth_pair_type_id FROM `word-to-phoneme`.mouth_pair_type WHERE mouth_pair_name = '" + selectedName + "' LIMIT 1;");
+        String mouthPairTypeIdQuery = new String("SELECT mouth_pair_type_id FROM mouth_pair_type WHERE mouth_pair_name = '" + selectedName + "' LIMIT 1;");
         ResultSet rs = Main.db.sendQuery(mouthPairTypeIdQuery);
         int mouthPairTypeId = 0;
         try {
@@ -28,7 +28,7 @@ public class LoadReferenceImages {
             throwables.printStackTrace();
         }
         System.out.println("mouthPairTypeId: " + mouthPairTypeId);
-        String referenceQuery = new String("SELECT symbol, symbol_id_pk2, image_url FROM `word-to-phoneme`.symbols INNER JOIN `word-to-phoneme`.image_map ON (symbols_id = symbol_id_pk2) WHERE mouth_pair_id_pk1 = " + mouthPairTypeId + " ORDER BY symbol;");
+        String referenceQuery = new String("SELECT symbol, symbol_id_pk2, image_url FROM symbols INNER JOIN image_map ON (symbols_id = symbol_id_pk2) WHERE mouth_pair_id_pk1 = " + mouthPairTypeId + " ORDER BY symbol;");
         ResultSet referenceImagesRs = Main.db.sendQuery(referenceQuery);
         String symbolName =  new String();
         int symbolId = 0;
