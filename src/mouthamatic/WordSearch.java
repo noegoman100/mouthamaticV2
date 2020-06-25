@@ -16,7 +16,7 @@ import java.sql.SQLException;
 
 public class WordSearch {
     public void run(TextField dataSearchWordTextField, TableView dataTableView){
-        String word = new String(dataSearchWordTextField.getText());
+        String word = new String(dataSearchWordTextField.getText().toUpperCase());
         ObservableList<ObservableList> wordData;
         wordData = FXCollections.observableArrayList();
         int maxParts = 0;
@@ -25,6 +25,7 @@ public class WordSearch {
             String queryMaxParts = new String("SELECT max(part_segment_pk2) FROM word_parts " +
                     "INNER JOIN word ON (word_id = word_id_pk1) " +
                     "WHERE word_name = '" + word + "';");
+            System.out.println(queryMaxParts);
             ResultSet maxPartsRS = Main.db.sendQuery(queryMaxParts);
             maxPartsRS.next(); //TODO if the word is not there (or too long) an error occurs
             maxParts = maxPartsRS.getInt(1);
@@ -49,7 +50,7 @@ public class WordSearch {
                         + "set" + (i+1) + ".part_segment_pk2=" + (i+1) + ") ";
             }
             queryAllParts = queryAllParts + "WHERE word_name='" + word + "'; ";
-
+            System.out.println(queryAllParts);
             /**** End Build Query based on max parts **/
             //System.out.println(queryAllParts);
             ResultSet rs = Main.db.sendQuery(queryAllParts);
@@ -68,6 +69,7 @@ public class WordSearch {
                             word_id = rs.getInt(1);
                         } catch (SQLException throwables) {
                             throwables.printStackTrace();
+                            System.out.println("Error in handle in WordSearch");
                         }
                     }
                     /** End Get word_id value from word name in tableView **/
@@ -141,6 +143,7 @@ public class WordSearch {
 
         } catch (Exception e) {
             e.printStackTrace();
+            System.out.println("Error in word search");
         }
     }
 }
